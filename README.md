@@ -16,6 +16,8 @@ Use Case
 <br/>.Net Core 3.1
 <br/>MongoDB
 <br/>RabbitMQ with MassTransit Framework
+<br/>MediatR
+<br/>HealthCheck
 <br/>Rest Api
 <br/>Consumer
 <br/>Memory Cache
