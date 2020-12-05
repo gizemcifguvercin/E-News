@@ -6,7 +6,7 @@ Report Consumer : dotnet new console -n ReportConsumer
 
 Install Nuget Packages
 
-For API :
+#### For API : ####
 
 1- SWAGGER 
 dotnet add package Swashbuckle.AspNetCore --version 5.6.3
@@ -14,10 +14,8 @@ dotnet add package Swashbuckle.AspNetCore --version 5.6.3
 2- HealthCheck
 dotnet add package Microsoft.AspNetCore.Diagnostics.HealthChecks --version 2.2.0
 
-
 3- MediatR
 dotnet add package MediatR --version 9.0.0
-
 dotnet add package MediatR.Extensions.Microsoft.DependencyInjection --version 9.0.0
 
 4- Serilog
@@ -27,7 +25,11 @@ dotnet add package Serilog.AspNetCore --version 3.4.0
 dotnet add package Serilog.Extensions.Logging --version 3.0.1
 dotnet add package Serilog.Extensions.Hosting --version 3.1.0
 
+5- RabbitMQ - MassTransit
+6- Docker File
 
-5- RabbitMq -> Docker
-6- MassTransit
+#### For Docker Compose File : ####
 
+1- RabbitMQ
+2- MongoDB
+3- ELK
