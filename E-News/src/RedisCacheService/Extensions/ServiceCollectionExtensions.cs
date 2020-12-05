@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using RedisCacheService.CacheService;
 using RedisCacheService.Configuration;
+using RedisCacheService.Server;
 
 namespace RedisCacheService.Extensions
 {
@@ -24,6 +25,7 @@ namespace RedisCacheService.Extensions
 
             services.AddSingleton<IRedisCacheService, CacheService.RedisCacheService>();
             services.AddSingleton<RedisConfiguration>(redisConfigurationInstance);
+            services.AddSingleton<RedisServer>();
 
             return services;
         }
