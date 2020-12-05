@@ -33,15 +33,12 @@ namespace RedisCacheService.Server
 
         private string CreateRedisConfigurationString(RedisConfiguration redisConfiguration)
         {
-            var redisHostConfigurationSection = redisConfiguration.Host;
-            var redisPortConfigurationSection = redisConfiguration.Port;
-
-            if (redisHostConfigurationSection == default || redisPortConfigurationSection == default)
+            if (redisConfiguration.Host == default || redisConfiguration.Password == default || redisConfiguration.Port == default)
             {
                 throw new Exception($"Redis configuration informations can not be null. Please check {redisConfiguration.GetType().Name}");
             }
 
-            return $"{redisHostConfigurationSection}:{redisPortConfigurationSection}";
+            return $"{redisConfiguration.Host}:{redisConfiguration.Port},password={redisConfiguration.Password}";
         }
     }
 }
