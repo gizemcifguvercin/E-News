@@ -1,6 +1,9 @@
+using Elastic.Apm.SerilogEnricher;
 using Microsoft.AspNetCore.Hosting; 
 using Microsoft.Extensions.Hosting; 
 using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Elasticsearch;
 
 namespace ReportAPI
 {
@@ -8,9 +11,14 @@ namespace ReportAPI
     {
         public static void Main(string[] args)
         {
-              Log.Logger = new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .WriteTo.Console()
+                .Enrich.WithElasticApmCorrelationInfo()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Fatal)
+                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Fatal)
+                .MinimumLevel.Override("Elastic.Apm", LogEventLevel.Fatal)
+                .MinimumLevel.Verbose()
+                .WriteTo.Console(new ElasticsearchJsonFormatter() { })
                 .CreateLogger();
 
             CreateHostBuilder(args).Build().Run();

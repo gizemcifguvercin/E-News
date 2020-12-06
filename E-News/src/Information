@@ -49,3 +49,5 @@ With Docker Compose:
 
 7- Elastic APM
 dotnet add package Elastic.Apm.NetCoreAll --version 1.7.1
+dotnet add package Serilog.Formatting.Elasticsearch --version 8.4.1
+dotnet add package Elastic.Apm.SerilogEnricher --version 1.5.1

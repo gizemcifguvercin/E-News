@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Elastic.Apm.NetCoreAll" Version="1.7.1" />
+    <PackageReference Include="Elastic.Apm.SerilogEnricher" Version="1.5.1" />
     <PackageReference Include="MassTransit" Version="7.0.7" />
     <PackageReference Include="MassTransit.AspNetCore" Version="7.0.7" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.7" />
@@ -15,6 +16,7 @@
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="8.4.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
   </ItemGroup>
