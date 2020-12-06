@@ -9,6 +9,10 @@ using Serilog;
 using MassTransit;
 using System;
 using Elastic.Apm.NetCoreAll;
+using Infrastructure.Contracts;
+using Infrastructure.Concretes;
+using Models;
+using ReportAPI.Services;
 
 namespace ReportAPI
 {
@@ -71,6 +75,15 @@ namespace ReportAPI
             }); 
 
             services.AddMassTransitHostedService();
+
+            services.AddSingleton<IMongoDbContext, MongoDbContext>();
+            services.AddSingleton<INewsRepository, NewsRepository>();
+            services.AddSingleton<INewsService, NewsService>();
+            services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
+
+            var provider = services.BuildServiceProvider();
+            var context = provider.GetService<IMongoDbContext>();
+            context.Init();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

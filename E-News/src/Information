@@ -4,8 +4,23 @@ Report API : dotnet new webapi -o ReportAPI
 
 Report Consumer : dotnet new console -n ReportConsumer
 
+Infrastructure : dotnet new console -n Infrastructure
+
 Install Nuget Packages
 
+#### For Infrastructure : ####
+
+1- MongoDB
+dotnet add package MongoDB.Driver --version 2.12.0-beta1
+dotnet add package MongoDB.Bson --version 2.12.0-beta1
+dotnet add package Microsoft.AspNetCore.Hosting --version 2.2.7
+dotnet add package Microsoft.Extensions.Options --version 5.0.0
+
+2- MediatR
+dotnet add package MediatR --version 9.0.0
+dotnet add package MediatR.Extensions.Microsoft.DependencyInjection --version 9.0.0
+
+ 
 #### For API : ####
 dotnet add package System.Text.Json --version 5.0.0
 

@@ -13,11 +13,7 @@ namespace ReportAPI
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .Enrich.WithElasticApmCorrelationInfo()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Fatal)
-                .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Fatal)
-                .MinimumLevel.Override("Elastic.Apm", LogEventLevel.Fatal)
-                .MinimumLevel.Verbose()
+                .Enrich.WithElasticApmCorrelationInfo()  
                 .WriteTo.Console(new ElasticsearchJsonFormatter() { })
                 .CreateLogger();
 

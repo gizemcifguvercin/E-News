@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace ReportAPI.Controllers
+namespace ReportAPI.Commands
 {
     public class CreateNewsCommand : IRequest<bool>
     {  
