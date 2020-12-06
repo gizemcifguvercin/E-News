@@ -46,3 +46,6 @@ With Docker Compose:
 2- MongoDB
 3- Elastic Search
 4- Kibana
+
+7- Elastic APM
+dotnet add package Elastic.Apm.NetCoreAll --version 1.7.1

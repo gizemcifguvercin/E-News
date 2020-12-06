@@ -8,7 +8,7 @@ using Microsoft.OpenApi.Models;
 using Serilog; 
 using MassTransit;
 using System;
-
+using Elastic.Apm.NetCoreAll;
 
 namespace ReportAPI
 {
@@ -25,7 +25,7 @@ namespace ReportAPI
         {
             services.AddControllers(); 
             services.AddMediatR(typeof(Startup));  
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -77,6 +77,8 @@ namespace ReportAPI
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage(); 
+
+            app.UseAllElasticApm(Configuration); 
 
             app.UseHttpsRedirection(); 
             app.UseRouting(); 
