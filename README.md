@@ -8,7 +8,7 @@ Use Case
 <b>Architecture</b>
 <hr>
 
-<img src="https://i.ibb.co/wSgr3Qt/E-News.png"/>
+<img src="https://i.ibb.co/3zgZYTv/arch.png"/>
 
 <hr>
 <b>Technical Overview</b>
