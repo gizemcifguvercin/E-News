@@ -9,7 +9,6 @@ namespace ReportAPI.Controllers
     [Route("[controller]")]
     public class NewsController : ControllerBase
     { 
-
         private readonly IMediator _mediator;
 
         public NewsController(IMediator mediator)
@@ -20,9 +19,9 @@ namespace ReportAPI.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateNews([FromBody] CreateNewsCommand command) 
         {           
-            string result = await _mediator.Send(command);
+            bool result = await _mediator.Send(command);
 
-            if(result == null)
+            if(result == false)
                 return BadRequest();
 
             return Ok(result);

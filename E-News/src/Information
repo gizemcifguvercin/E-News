@@ -7,6 +7,7 @@ Report Consumer : dotnet new console -n ReportConsumer
 Install Nuget Packages
 
 #### For API : ####
+dotnet add package System.Text.Json --version 5.0.0
 
 1- SWAGGER 
 dotnet add package Swashbuckle.AspNetCore --version 5.6.3
@@ -26,10 +27,22 @@ dotnet add package Serilog.Extensions.Logging --version 3.0.1
 dotnet add package Serilog.Extensions.Hosting --version 3.1.0
 
 5- RabbitMQ - MassTransit
+dotnet add package MassTransit --version 7.0.7
+dotnet add package RabbitMQ.Client --version 6.2.1
+dotnet add package MassTransit.RabbitMQ --version 7.0.7
+dotnet add package MassTransit.AspNetCore --version 7.0.7
 6- Docker File
 
-#### For Docker Compose File : ####
+#### For Docker Images : ####
+
+PS. #Docker must be Installed on your computer
+
+With Docker Compose:
+        cd  .\docker-compose\
+        docker-compose up   
 
 1- RabbitMQ
+    #Create a queue as "NewsQueue" on RabbitMQ Dashboard and Bind queue to "News" Exchange
 2- MongoDB
-3- ELK
+3- Elastic Search
+4- Kibana

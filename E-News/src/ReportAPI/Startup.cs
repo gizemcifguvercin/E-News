@@ -5,7 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting; 
 using MediatR;
 using Microsoft.OpenApi.Models;
-using Serilog;
+using Serilog; 
+using MassTransit;
+using System;
+
 
 namespace ReportAPI
 {
@@ -16,13 +19,13 @@ namespace ReportAPI
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; } 
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddMediatR(typeof(Startup)); 
+            services.AddControllers(); 
+            services.AddMediatR(typeof(Startup));  
+            
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -33,8 +36,7 @@ namespace ReportAPI
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Description = "",
-                });
-
+                }); 
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
@@ -49,39 +51,53 @@ namespace ReportAPI
                         new string[] {}
                     }
                 });
-            });
- 
-            services.AddHealthChecks();
+            }); 
 
+            services.AddHealthChecks();   
+
+            services.AddMassTransit(x =>
+            {
+                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+                    {
+                        config.UseHealthCheck(provider);
+                        config.Host(new Uri(Configuration.GetSection("RabbitMqSettings:host").Value),"/",
+                        h =>
+                        { 
+                            h.Username(Configuration.GetSection("RabbitMqSettings:username").Value);
+                            h.Password(Configuration.GetSection("RabbitMqSettings:password").Value);  
+                        });  
+                        
+                    }));        
+            }); 
+
+            services.AddMassTransitHostedService();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+                app.UseDeveloperExceptionPage(); 
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseHttpsRedirection(); 
+            app.UseRouting(); 
+            app.UseAuthorization(); 
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHealthChecks("/api/v1/status");
                 endpoints.MapControllers();
-            });
+            }); 
 
-            app.UseSwagger();
+            app.UseSwagger(); 
 
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json","Report API");
-            });
-   
+            }); 
+
             app.UseSerilogRequestLogging();
-        }
+            
+        } 
+         
     }
 }
