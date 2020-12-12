@@ -12,18 +12,18 @@ using Serilog;
 
 namespace ReportAPI.DomainEventHandlers 
 {
-    public class NewsDomainEventHandler : INotificationHandler<NewsDomainEvent>
+    public class CreateNewsDomainEventHandler : INotificationHandler<CreateNewsDomainEvent>
     {
         private readonly IBus _bus;
         private readonly IConfiguration _configuration;
         private ISendEndpoint _sendEndpoint;
-        public NewsDomainEventHandler(IBus bus, IConfiguration configuration)
+        public CreateNewsDomainEventHandler(IBus bus, IConfiguration configuration)
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _sendEndpoint =  _bus.GetSendEndpoint(new Uri($"{_configuration.GetSection("RabbitMqSettings:server").Value}/News")).GetAwaiter().GetResult();
         }
-        public async Task Handle(NewsDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(CreateNewsDomainEvent notification, CancellationToken cancellationToken)
         {
             try
             { 
