@@ -3,11 +3,11 @@ using Models;
 
 namespace Infrastructure.Events 
 {
-    public class NewsDomainEvent : INotification
+    public class CreateNewsDomainEvent : INotification
     {
         public News News { get; set; }
 
-        public NewsDomainEvent(News news) 
+        public CreateNewsDomainEvent(News news) 
         {
             News = news;
         }

@@ -14,7 +14,7 @@ namespace Models
         }
         public void CreateNewsMessage()
         {
-            AddDomainEvent(new NewsDomainEvent(this));
+            AddDomainEvent(new CreateNewsDomainEvent(this));
         }
     }
 }
