@@ -22,7 +22,7 @@ namespace ReportAPI.Services
                 .Information("CreateNewsCommandRequest Model : {@request}", JsonSerializer.Serialize(request));
 
              News news = new News(request.AgencyCode, request.NewsContent, true);
-             news.AddNewsDomainEvent();
+             news.CreateNewsMessage();
              
              bool result =  await _newsRepository.Save(news);
              return result;

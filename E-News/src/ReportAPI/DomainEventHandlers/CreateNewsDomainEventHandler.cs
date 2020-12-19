@@ -26,15 +26,18 @@ namespace ReportAPI.DomainEventHandlers
         public async Task Handle(CreateNewsDomainEvent notification, CancellationToken cancellationToken)
         {
             try
-            { 
-                await _sendEndpoint.Send(new Message(notification.News.AgencyCode, notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive));  
+            {
+                await _sendEndpoint.Send(new Message(notification.News.AgencyCode,
+                  notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive));
             }
             catch(Exception e) { 
                 Log.Error(e.Message);
                 Log.ForContext<CreateNewsCommandHandler>()
                 .Error(
                     "Haber Kuyruğa atılamadı : {@notification}", JsonSerializer.Serialize(notification));
+ 
             }
+ 
         }
     }
 }
