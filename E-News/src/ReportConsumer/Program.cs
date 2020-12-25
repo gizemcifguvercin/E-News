@@ -81,7 +81,7 @@ namespace ReportConsumer
             {
                 return builder =>
                 {
-                    builder.RegisterType<NewsCreatedEventHandler>().As<IEventHandler<News>>()
+                    builder.RegisterType<NewsCreatedEventHandler>().As<IEventHandler<CreateMessage>>()
                         .SingleInstance();
 
                     builder.RegisterAssemblyTypes(Assembly.Load("ReportConsumer"))
@@ -113,7 +113,7 @@ namespace ReportConsumer
                                 {
                                     var contextResolved = context.Resolve<IComponentContext>();
                                     x.Consumer(() =>
-                                        new NewsCreatedConsumer(contextResolved.Resolve<IEventHandler<News>>()
+                                        new NewsCreatedConsumer(contextResolved.Resolve<IEventHandler<CreateMessage>>()
                                         ));
                                     x.BindMessageExchanges = false;
                                     x.Bind("ENews.Events.V1.News:Created", y =>

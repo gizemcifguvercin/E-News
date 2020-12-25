@@ -6,7 +6,6 @@ using Infrastructure.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
-using Models;
 using ReportAPI.Controllers; 
 using Serilog;
 
@@ -23,7 +22,7 @@ namespace ReportAPI.DomainEventHandlers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         
-         private async Task SendMessageToBus(Message command)
+         private async Task SendMessageToBus(CreateMessage command)
         {
             Uri UriBuilder(string server, string vHost)
             {
@@ -41,7 +40,7 @@ namespace ReportAPI.DomainEventHandlers
         {
             try
             {
-                var message = new Message(notification.News.AgencyCode,
+                var message = new CreateMessage(notification.News.AgencyCode,
                   notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive);
 
                 await SendMessageToBus(message);

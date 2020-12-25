@@ -5,16 +5,16 @@ using ReportConsumer.Handlers;
 
 namespace  ReportConsumer.Consumers
 { 
-    public class NewsCreatedConsumer : IConsumer<News>
+    public class NewsCreatedConsumer : IConsumer<CreateMessage>
     {
-        private readonly IEventHandler<News> _eventHandler;
+        private readonly IEventHandler<CreateMessage> _eventHandler;
 
-        public NewsCreatedConsumer(IEventHandler<News> eventHandler)
+        public NewsCreatedConsumer(IEventHandler<CreateMessage> eventHandler)
         {
             _eventHandler = eventHandler;
         }
 
-        public async Task Consume(ConsumeContext<News> context)
+        public async Task Consume(ConsumeContext<CreateMessage> context)
         {
             await _eventHandler.Handle(context.Message);
         }

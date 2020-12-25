@@ -3,7 +3,7 @@ using Models;
 
 namespace ReportConsumer.Handlers
 {
-    public class NewsCreatedEventHandler : IEventHandler<News>
+    public class NewsCreatedEventHandler : IEventHandler<CreateMessage>
     {
        public NewsCreatedEventHandler()
        {
@@ -12,7 +12,7 @@ namespace ReportConsumer.Handlers
 
         public async Task Handle<T>(T message)
         {
-            var msg = message as News;
+            var msg = message as CreateMessage;
             //TO-DO
         }
     }
