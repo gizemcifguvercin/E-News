@@ -6,6 +6,7 @@ using Infrastructure.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Models;
 using ReportAPI.Controllers; 
 using Serilog;
 
