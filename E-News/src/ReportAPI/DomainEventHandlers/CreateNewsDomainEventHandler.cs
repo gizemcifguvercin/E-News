@@ -21,14 +21,31 @@ namespace ReportAPI.DomainEventHandlers
         {
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _sendEndpoint =  _bus.GetSendEndpoint(new Uri($"{_configuration.GetSection("RabbitMqSettings:server").Value}/News")).GetAwaiter().GetResult();
         }
+        
+         private async Task SendMessageToBus(Message command)
+        {
+            Uri UriBuilder(string server, string vHost)
+            {
+                return new Uri($"{server}/{vHost}");
+            }
+
+            var uri = UriBuilder(_configuration.GetSection("RabbitMqSettings:Host").Value,
+                "ENews.Events.V1.NewsCreated");
+
+            var sendEndpoint = await _bus.GetSendEndpoint(uri);
+            await sendEndpoint.Send(command);
+        }
+
         public async Task Handle(CreateNewsDomainEvent notification, CancellationToken cancellationToken)
         {
             try
             {
-                await _sendEndpoint.Send(new Message(notification.News.AgencyCode,
-                  notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive));
+                var message = new Message(notification.News.AgencyCode,
+                  notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive);
+
+                await SendMessageToBus(message);
+ 
             }
             catch(Exception e) { 
                 Log.Error(e.Message);

@@ -46,6 +46,7 @@ dotnet add package MassTransit --version 7.0.7
 dotnet add package RabbitMQ.Client --version 6.2.1
 dotnet add package MassTransit.RabbitMQ --version 7.0.7
 dotnet add package MassTransit.AspNetCore --version 7.0.7
+
 6- Docker File
 
 #### For Docker Images : ####
@@ -57,7 +58,9 @@ With Docker Compose:
         docker-compose up   
 
 1- RabbitMQ
-    #Create a queue as "NewsQueue" on RabbitMQ Dashboard and Bind queue to "News" Exchange
+    Exchange : ENews.Events.V1.News:Created
+    Queue: ENews.Events.V1.NewsCreated
+    RoutingKey  : #.NWS
 2- MongoDB
 3- Elastic Search
 4- Kibana
@@ -66,3 +69,23 @@ With Docker Compose:
 dotnet add package Elastic.Apm.NetCoreAll --version 1.7.1
 dotnet add package Serilog.Formatting.Elasticsearch --version 8.4.1
 dotnet add package Elastic.Apm.SerilogEnricher --version 1.5.1
+
+
+#### For Consumer : ####
+
+RabbitMQ
+dotnet add package RabbitMQ.Client --version 6.2.1
+dotnet add package MassTransit --version 6.2.0
+dotnet add package MassTransit.RabbitMQ --version 6.2.0
+dotnet add package MassTransit.AspNetCore --version 6.2.0
+
+MS Extensions:
+dotnet add package Microsoft.Extensions.Configuration --version 5.0.0
+dotnet add package Microsoft.Extensions.DependencyInjection --version 5.0.1
+dotnet add package Microsoft.Extensions.Hosting --version 5.0.0
+dotnet add package Autofac --version 5.1.2
+dotnet add package Autofac.Extensions.DependencyInjection --version 6.0.0
+dotnet add package Microsoft.Extensions.Http --version 5.0.0
+dotnet add package MassTransit.Autofac --version 6.2.0
+dotnet add package MassTransit.RabbitMQ --version 6.2.0
+dotnet add package MassTransit --version 6.2.0

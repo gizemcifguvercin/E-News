@@ -342,3 +342,5 @@ healthchecksdb
 *.txt
 
 .vscode/
+
+.DS_Store
