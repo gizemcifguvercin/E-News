@@ -12,5 +12,4 @@ namespace Infrastructure.Events
             News = news;
         }
     }
-
 }

@@ -1,19 +1,22 @@
 using System.Threading.Tasks;
 using Models;
+using ReportConsumer.Service.Contracts;
 
 namespace ReportConsumer.Handlers
 {
     public class NewsCreatedEventHandler : IEventHandler<CreateMessage>
     {
-       public NewsCreatedEventHandler()
-       {
+        private IIntegrationService _integrationService;
 
-       }
-
-        public async Task Handle<T>(T message)
+        public NewsCreatedEventHandler(IIntegrationService integrationService)
         {
-            var msg = message as CreateMessage;
-            //TO-DO
+            _integrationService = integrationService;
+        }
+ 
+        public Task Handle(CreateMessage message)
+        { 
+            _integrationService.SendNewsToAgency(message);
+            return Task.CompletedTask;
         }
     }
 }

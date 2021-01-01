@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Infrastructure.Contracts;
 using MediatR;
@@ -40,6 +41,11 @@ namespace Infrastructure.Concretes
 
             result = await InsertAsync(item); 
             return result;     
-       } 
+       }
+
+        public async Task<List<T>> FindAsync()
+        {
+            return await _items.AsQueryable().ToListAsync();
+        }
     }
 } 

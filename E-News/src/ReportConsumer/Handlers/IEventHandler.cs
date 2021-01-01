@@ -4,6 +4,6 @@ namespace ReportConsumer.Handlers
 {
     public interface IEventHandler<T>
     {
-        Task Handle<T> (T message);
+        Task Handle(T message);
     }
 }

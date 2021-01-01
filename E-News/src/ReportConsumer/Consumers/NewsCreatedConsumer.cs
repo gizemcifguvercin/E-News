@@ -1,22 +1,29 @@
+using System;
 using System.Threading.Tasks;
 using MassTransit;
 using Models;
+using ReportConsumer.Configuration;
 using ReportConsumer.Handlers;
 
-namespace  ReportConsumer.Consumers
-{ 
+namespace ReportConsumer.Consumers
+{
     public class NewsCreatedConsumer : IConsumer<CreateMessage>
     {
-        private readonly IEventHandler<CreateMessage> _eventHandler;
-
-        public NewsCreatedConsumer(IEventHandler<CreateMessage> eventHandler)
+        public Task Consume(ConsumeContext<CreateMessage> context)
         {
-            _eventHandler = eventHandler;
-        }
+            try
+            {
+                var handler =
+                    (NewsCreatedEventHandler) ServiceManager.ServiceProvider.GetService(
+                        typeof(IEventHandler<CreateMessage>));
 
-        public async Task Consume(ConsumeContext<CreateMessage> context)
-        {
-            await _eventHandler.Handle(context.Message);
+                handler.Handle(context.Message);
+                return Task.CompletedTask;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
