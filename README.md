@@ -2,8 +2,11 @@
 This project is about how we can send news to related news agency.
 
 Use Case
-<br/> 1- Reporter saves the news into system
-<br/> 2- System will send the news related agency
+
+<br/> 1- User/System starts event by posting news data to Report API
+<br/> 2- Report API saves data to DB and produce data into queue
+<br/> 3- ReportConsumer as webhook, consumes data from queue,
+gets agency info from cache or db and send data to related agency integration
 
 <b>Architecture</b>
 <hr>
