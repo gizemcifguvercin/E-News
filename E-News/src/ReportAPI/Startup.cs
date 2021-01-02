@@ -8,10 +8,17 @@ using Microsoft.OpenApi.Models;
 using Serilog; 
 using MassTransit;
 using System;
+using System.Linq;
+using System.Text;
 using Elastic.Apm.NetCoreAll;
+using FluentValidation;
 using Infrastructure.Contracts;
 using Infrastructure.Concretes;
+using Infrastructure.PipelineBehaviours;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Models;
+using Newtonsoft.Json;
 using ReportAPI.Services;
 
 namespace ReportAPI
@@ -29,7 +36,7 @@ namespace ReportAPI
         {
             services.AddControllers(); 
             services.AddMediatR(typeof(Startup));  
-
+            services.AddCommandValidators(new[] {typeof(Startup).Assembly});
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -92,7 +99,32 @@ namespace ReportAPI
                 app.UseDeveloperExceptionPage(); 
 
             app.UseAllElasticApm(Configuration); 
+            app.Use(async (ctx, next) =>
+            {
+                try
+                {
+                    await next();
+                }
+                catch (ValidationException e)
+                {
+                    var response = ctx.Response;
+                    if (response.HasStarted)
+                        throw;
 
+                    ctx.RequestServices
+                        .GetRequiredService<ILogger<Startup>>()
+                        .LogWarning(e, "Command could not be validated!");
+
+                    response.Clear();
+                    response.StatusCode = 400;
+                    response.ContentType = "application/json";
+                    await response.WriteAsync(JsonConvert.SerializeObject(new
+                    {
+                        Message = "Opps.. Something went terribly wrong!",
+                        ModelState = e.Errors.ToDictionary(error => error.ErrorCode, error => error.ErrorMessage)
+                    }), Encoding.UTF8, ctx.RequestAborted);
+                }
+            });
             app.UseHttpsRedirection(); 
             app.UseRouting(); 
             app.UseAuthorization(); 
