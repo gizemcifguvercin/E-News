@@ -17,7 +17,7 @@ namespace ReportConsumer.Service.Concretes
             _integrationDefinationService = integrationDefinationService;
         }
 
-        public async Task SendNewsToAgency(CreateMessage message)
+        public async Task SendNewsToAgency(NewsCreated message)
         {
             var info = await _integrationDefinationService.GetIntegrationDetails(message.AgencyCode);
             

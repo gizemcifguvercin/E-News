@@ -4,7 +4,7 @@ using ReportConsumer.Service.Contracts;
 
 namespace ReportConsumer.Handlers
 {
-    public class NewsCreatedEventHandler : IEventHandler<CreateMessage>
+    public class NewsCreatedEventHandler : IEventHandler<NewsCreated>
     {
         private IIntegrationService _integrationService;
 
@@ -13,7 +13,7 @@ namespace ReportConsumer.Handlers
             _integrationService = integrationService;
         }
  
-        public Task Handle(CreateMessage message)
+        public Task Handle(NewsCreated message)
         { 
             _integrationService.SendNewsToAgency(message);
             return Task.CompletedTask;

@@ -7,15 +7,15 @@ using ReportConsumer.Handlers;
 
 namespace ReportConsumer.Consumers
 {
-    public class NewsCreatedConsumer : IConsumer<CreateMessage>
+    public class NewsCreatedConsumer : IConsumer<NewsCreated>
     {
-        public Task Consume(ConsumeContext<CreateMessage> context)
+        public Task Consume(ConsumeContext<NewsCreated> context)
         {
             try
             {
                 var handler =
                     (NewsCreatedEventHandler) ServiceManager.ServiceProvider.GetService(
-                        typeof(IEventHandler<CreateMessage>));
+                        typeof(IEventHandler<NewsCreated>));
 
                 handler.Handle(context.Message);
                 return Task.CompletedTask;

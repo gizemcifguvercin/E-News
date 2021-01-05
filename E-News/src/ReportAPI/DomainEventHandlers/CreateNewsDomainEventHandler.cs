@@ -23,7 +23,7 @@ namespace ReportAPI.DomainEventHandlers
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         
-         private async Task SendMessageToBus(CreateMessage command)
+         private async Task SendMessageToBus(NewsCreated command)
         {
             Uri UriBuilder(string server, string vHost)
             {
@@ -41,7 +41,7 @@ namespace ReportAPI.DomainEventHandlers
         {
             try
             {
-                var message = new CreateMessage(notification.News.AgencyCode,
+                var message = new NewsCreated(notification.News.AgencyCode,
                   notification.News.NewsContent , notification.News.CreatedOn, notification.News.IsActive);
 
                 await SendMessageToBus(message);

@@ -38,7 +38,7 @@ namespace ReportConsumer.Configuration
             context.Init();
             //INF 
             
-            services.AddSingleton(typeof(IEventHandler<CreateMessage>), typeof(NewsCreatedEventHandler));
+            services.AddSingleton(typeof(IEventHandler<NewsCreated>), typeof(NewsCreatedEventHandler));
             ServiceProvider = services.BuildServiceProvider();
         }
     }

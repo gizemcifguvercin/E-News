@@ -2,14 +2,14 @@ using System;
 
 namespace Models
 {
-    public class CreateMessage  
+    public class NewsCreated  
     { 
         public string AgencyCode { get; set; }
         public string NewsContent { get; set; }
         public  DateTime CreatedOn { get; private set; }
         public  bool IsActive { get; set; }   
          
-         public CreateMessage(string agencyCode, string newsContent, DateTime createdOn, bool isActive )
+         public NewsCreated(string agencyCode, string newsContent, DateTime createdOn, bool isActive )
         {
             AgencyCode = agencyCode;
             NewsContent = newsContent;

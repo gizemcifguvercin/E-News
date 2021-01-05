@@ -5,6 +5,6 @@ namespace ReportConsumer.Service.Contracts
 {
     public interface IIntegrationService
     {
-        Task SendNewsToAgency(CreateMessage message);
+        Task SendNewsToAgency(NewsCreated message);
     }
 }
