@@ -74,6 +74,7 @@ MongoDB
 ######################
 
 mongo 
+use admin
 db.auth("root","rootpassword")
 
 use E-News
@@ -88,3 +89,7 @@ db.AgencyInfo.insert(
    }
  )
  db.getCollection('AgencyInfo').find()
+ db.getCollection('News').find()
+
+
+ASPNETCORE_ENVIRONMENT=qa
