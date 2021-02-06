@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Models;
 using ReportConsumer.Service.Contracts;
@@ -13,10 +14,9 @@ namespace ReportConsumer.Handlers
             _integrationService = integrationService;
         }
  
-        public Task Handle(NewsCreated message)
+        public async Task Handle(NewsCreated message)
         { 
-            _integrationService.SendNewsToAgency(message);
-            return Task.CompletedTask;
+            await _integrationService.SendNewsToAgency(message);
         }
     }
 }

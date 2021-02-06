@@ -9,7 +9,7 @@ namespace ReportConsumer.Consumers
 {
     public class NewsCreatedConsumer : IConsumer<NewsCreated>
     {
-        public Task Consume(ConsumeContext<NewsCreated> context)
+        public async Task Consume(ConsumeContext<NewsCreated> context)
         {
             try
             {
@@ -17,8 +17,7 @@ namespace ReportConsumer.Consumers
                     (NewsCreatedEventHandler) ServiceManager.ServiceProvider.GetService(
                         typeof(IEventHandler<NewsCreated>));
 
-                handler.Handle(context.Message);
-                return Task.CompletedTask;
+                await handler.Handle(context.Message);
             }
             catch (Exception ex)
             {
