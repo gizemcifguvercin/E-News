@@ -42,3 +42,8 @@ gets agency info from cache or db and send data to related agency integration
 <br/>AgencyInfo
 <br/><img src="https://i.ibb.co/3dfTgv3/Screen-Shot-2021-01-01-at-18-19-59.png"/>
 
+<br/>Senaryoyu anlatmak ve bilgi vermek amacıyla iki adet eğitim videosu oluşturdum, aşağıdaki linklerden izleyebilirsiniz. 
+<br/>1- https://www.youtube.com/watch?v=T9q_oJK_QrE
+<br/>2- https://www.youtube.com/watch?v=TfS4EDrewF4
+
+<br/>Blog: https://gcifguvercin.medium.com/webhooks-i%CC%87le-development-zaman%C4%B1n%C4%B1-0a-indirme-1-e8793d8f0a9e
